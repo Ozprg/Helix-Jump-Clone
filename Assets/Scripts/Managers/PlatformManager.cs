@@ -12,22 +12,20 @@ public class PlatformManager : MonoBehaviour
         BreakablePlatforms = GetComponentsInChildren<IBreakable>();
         Platforms = GetComponentsInChildren<IPlatform>();   
     }
-    public void BreakPlatform(IBreakable platform)
+    public void BreakPlatform(IBreakable breakablePlatform)
     {
-        platform.Break(platform); 
+        breakablePlatform.Break(breakablePlatform); 
         EventManager.Instance.PointCollected();
-        Debug.Log("Platform is broken");
     }
     public void BreakOtherPlatformsAtTheLevelOfCollision(IPlatform platform)
     {
         foreach (IPlatform platforms in Platforms)
         {
             if (platforms != platform && platforms.PlatformPosition.y == platform.PlatformPosition.y)
-            {             
+            {
                 BreakPlatform((IBreakable)platforms);
             }
         }
-        Debug.Log("Other platforms are broken");
     }
     public void BreakOtherPlatformsAboveThePlayer(IInvisibleBarrier barrier)
     {
@@ -38,7 +36,6 @@ public class PlatformManager : MonoBehaviour
                 BreakPlatform((IBreakable)platforms);
             }
         }
-        Debug.Log("Other platforms above the player are broken");
     }
     public void BreakFinalPlatform()
     {
