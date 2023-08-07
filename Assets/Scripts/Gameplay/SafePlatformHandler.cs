@@ -28,7 +28,7 @@ public class SafePlatformHandler : CollusionBase, IPlatform
 
         if (player != null)
         {
-            if (player.PlayerSpeed > thresholdBreakSpeed)
+            if (player.PlayerSpeed > thresholdBreakSpeed && platformType.isBreakable)
             {
                 platformManager.BreakPlatform(this);
                 platformManager.BreakOtherPlatformsAtTheLevelOfCollision(this);

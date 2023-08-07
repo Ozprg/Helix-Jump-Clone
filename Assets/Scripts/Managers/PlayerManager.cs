@@ -12,6 +12,14 @@ public class PlayerManager : MonoBehaviour, IPlayer, IBounceable
     public bool IsGrounded { get { return isGrounded; } set { isGrounded = value; } }
     private Rigidbody Rigidbody;
 
+    void OnEnable()
+    {
+        EventManager.Instance.onLevelFailed += DestroyPlayer;
+    }
+    void OnDisable()
+    {
+        EventManager.Instance.onLevelFailed -= DestroyPlayer;
+    }
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -23,16 +31,18 @@ public class PlayerManager : MonoBehaviour, IPlayer, IBounceable
     private void OnCollisionEnter(Collision other)
     {
         IPlatform platform = other.gameObject.GetComponent<IPlatform>();
-        Vector3 contactPoint = transform.position;
         isGrounded = true;
 
         if (platform != null)
         {
-            if (isGrounded && platform.IsPlatformSafe == true)
+            if (isGrounded)
             {
-                CreateSplash(platform);
-                Bounce();
-                isGrounded = false;
+                if (platform.IsPlatformSafe)
+                {
+                    CreateSplash(platform);
+                    Bounce();
+                    isGrounded = false;
+                }
             }
         }
     }
@@ -42,7 +52,7 @@ public class PlayerManager : MonoBehaviour, IPlayer, IBounceable
     }
     public void DestroyPlayer()
     {
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
     private void CreateSplash(IPlatform platform)
     {

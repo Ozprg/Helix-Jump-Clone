@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: HazardousPlatform
   m_EditorClassIdentifier: 
   platformColor: {r: 0.7924528, g: 0.32408455, b: 0.025418244, a: 0}
-  platformScale: {x: 0, y: 0, z: 0}
+  platformScale: {x: 350, y: 350, z: 350}
   isBreakable: 0

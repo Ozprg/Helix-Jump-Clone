@@ -13,15 +13,15 @@ public class HazardousPlatformHandler : CollusionBase, IPlatform
     private void Awake()
     {
         platformManager = GetComponentInParent<PlatformManager>();
+        GetComponent<Renderer>().material.color = platformType.platformColor;
         PlatformPosition = transform.position;
         IsPlatformSafe = false;
     }
     protected override void DetectCollision(Collision other)
     {
         IPlayer player = other.gameObject.GetComponent<IPlayer>();
-        if (player != null && !IsPlatformSafe)
+        if (player != null)
         {
-            player.DestroyPlayer();
             EventManager.Instance.LevelFailed();
         }
     }
