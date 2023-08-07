@@ -33,6 +33,7 @@ public class SafePlatformHandler : CollusionBase, IPlatform
                 platformManager.BreakPlatform(this);
                 platformManager.BreakOtherPlatformsAtTheLevelOfCollision(this);
             }
+            EventManager.Instance.PlatformPassed(this);
         }
     }
 }

@@ -15,7 +15,6 @@ public class PlatformManager : MonoBehaviour
     public void BreakPlatform(IBreakable breakablePlatform)
     {
         breakablePlatform.Break(breakablePlatform); 
-        EventManager.Instance.PointCollected();
     }
     public void BreakOtherPlatformsAtTheLevelOfCollision(IPlatform platform)
     {
@@ -24,6 +23,7 @@ public class PlatformManager : MonoBehaviour
             if (platforms != platform && platforms.PlatformPosition.y == platform.PlatformPosition.y)
             {
                 BreakPlatform((IBreakable)platforms);
+                EventManager.Instance.PointCollected();
             }
         }
     }
@@ -34,6 +34,7 @@ public class PlatformManager : MonoBehaviour
             if (platforms.PlatformPosition.y > barrier.BarrierPosition.y)
             {
                 BreakPlatform((IBreakable)platforms);
+                EventManager.Instance.PointCollected();
             }
         }
     }

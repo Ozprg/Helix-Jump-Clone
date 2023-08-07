@@ -6,6 +6,7 @@ public class EventManager : MonoBehaviour
     public Action onLevelFailed;
     public Action onLevelCompleted;
     public Action onPointCollected;
+    public Action<IPlatform> onPlatformPassed;
 
     #region Singleton
     public static EventManager Instance { get; private set; }
@@ -31,5 +32,9 @@ public class EventManager : MonoBehaviour
     public void PointCollected()
     {
         onPointCollected?.Invoke();
+    }
+    public void PlatformPassed(IPlatform platform)
+    {
+        onPlatformPassed?.Invoke(platform);
     }
 }

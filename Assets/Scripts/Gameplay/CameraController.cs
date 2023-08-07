@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private Vector3 offset;
-    private void Update()
+    [SerializeField] private Vector3 cameraOffset;
+    private void OnEnable()
     {
-        Vector3 desiredPosition = new Vector3(transform.position.x, playerTransform.position.y, transform.position.z);
-        desiredPosition.y = Mathf.Clamp(desiredPosition.y, float.MinValue, playerTransform.position.y);
-        transform.position = desiredPosition;
+        EventManager.Instance.onPlatformPassed += MoveToNextPlatformPosition;
+    }
+    private void OnDisable()
+    {
+        EventManager.Instance.onPlatformPassed -= MoveToNextPlatformPosition;
+    }
+    private void MoveToNextPlatformPosition(IPlatform platform)
+    {
+        transform.DOMove(platform.PlatformTransform.position + cameraOffset, 0.5f);
     }
 }
