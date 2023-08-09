@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    public Action onGameStarted;
     public Action onLevelFailed;
     public Action onLevelCompleted;
     public Action onPointCollected;
@@ -24,6 +25,10 @@ public class EventManager : MonoBehaviour
     public void LevelFailed()
     {
         onLevelFailed?.Invoke();
+    }
+    public void GameStarted()
+    {
+        onGameStarted?.Invoke();
     }
     public void LevelCompleted()
     {

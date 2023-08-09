@@ -4,6 +4,7 @@ using DG.Tweening;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Vector3 cameraOffset;
+
     private void OnEnable()
     {
         EventManager.Instance.onPlatformPassed += MoveToNextPlatformPosition;

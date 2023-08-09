@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FinalPlatformHandler : CollusionBase
@@ -14,13 +13,7 @@ public class FinalPlatformHandler : CollusionBase
         IPlayer player = other.gameObject.GetComponent<IPlayer>();
         if (player != null)
         {
-            PlatformManager platformManager = GetComponentInParent<PlatformManager>();
-            StartCoroutine(WaitaAfterFinalCollusion());
+            platformManager.BreakFinalPlatform();
         }      
-    }
-    IEnumerator WaitaAfterFinalCollusion()
-    {
-        yield return new WaitForSeconds(1.5f);
-        platformManager.BreakFinalPlatform();
     }
 }

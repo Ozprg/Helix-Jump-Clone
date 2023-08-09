@@ -3,22 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    private void OnEnable()
+    public void OnGameStarted()
     {
-        EventManager.Instance.onLevelFailed += OnLevelFailed;
-        EventManager.Instance.onLevelCompleted += OnLevelCompleted;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    private void OnDisable()
+    public void OnLevelCompleted()
     {
-        EventManager.Instance.onLevelFailed -= OnLevelFailed;
-        EventManager.Instance.onLevelCompleted -= OnLevelCompleted;
-    }
-
-    private void OnLevelCompleted()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == SceneManager.sceneCountInBuildSettings - 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             return;
         }
         else
@@ -26,8 +19,7 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }        
     }
-
-    private void OnLevelFailed()
+    public void OnLevelFailed()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
